@@ -25,7 +25,7 @@ async function drawMeters() {
         const svgNS = "http://www.w3.org/2000/svg";
         const svg = document.createElementNS(svgNS, "svg");
         const radius = 150;
-        const cx = 180, cy = 180;
+        const cx = 60, cy = 60;
 
         for (let j = 0; j < happinessLevels.length; j++) {
             const startAngle = Math.PI * (j / happinessLevels.length);
