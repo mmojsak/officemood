@@ -12,8 +12,8 @@ body {
 }
 
 .meter {
-    width: 360px;
-    height: 180px;
+    width: 400px; /* original 120 */
+    height: 200px; /* original 60 */
     position: relative;
 }
 
