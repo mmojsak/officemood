@@ -46,7 +46,7 @@ async function drawMeters() {
 
         // Arrow
         const arrowAngle = Math.PI * ((happinessData[i]+0.5)/happinessLevels.length);
-        const arrowLength = radius - 30;
+        const arrowLength = radius - 50;
         const arrowX = cx + arrowLength * Math.cos(arrowAngle);
         const arrowY = cy - arrowLength * Math.sin(arrowAngle);
 
