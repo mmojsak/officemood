@@ -1,10 +1,10 @@
 const people = [
-    {name: "E-dawg", password: "euan"},
-    {name: "J-dawg", password: "josh"},
+    {name: "Euan", password: "euan"},
+    {name: "Jooh", password: "josh"},
     {name: "T-dawg", password: "tahlia"},
-    {name: "L-dawg", password: "lucy"},
-    {name: "M-dawg", password: "mateusz"},
-    {name: "A-dawg", password: "adam"}
+    {name: "Lsmit", password: "lucy"},
+    {name: "M-pies", password: "mateusz"},
+    {name: "Jefe", password: "adam"}
 ];
 
 const happinessLevels = ["Very Sad", "Sad", "Neutral", "Happy", "Very Happy"];
