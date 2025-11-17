@@ -56,7 +56,7 @@ async function drawMeters() {
         arrow.setAttribute("x2", arrowX);
         arrow.setAttribute("y2", arrowY);
         arrow.setAttribute("stroke", "black");
-        arrow.setAttribute("stroke-width", "3");
+        arrow.setAttribute("stroke-width", "9");
         svg.appendChild(arrow);
 
         meterDiv.appendChild(svg);
