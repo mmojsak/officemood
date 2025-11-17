@@ -24,7 +24,7 @@ async function drawMeters() {
 
         const svgNS = "http://www.w3.org/2000/svg";
         const svg = document.createElementNS(svgNS, "svg");
-        svg.setAttribute("viewBox", "0 0 360 360");  // enough to contain the semicircle
+        svg.setAttribute("viewBox", "0 0 360 180");  // enough to contain the semicircle
         svg.setAttribute("width", "360");            // or larger if you want
         svg.setAttribute("height", "180");           // half-circle height
         const radius = 180;
