@@ -1,4 +1,6 @@
 body {
+    background-color: #242424;
+    color: white;
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 60px;
@@ -26,6 +28,7 @@ body {
 .meter-name {
     margin-top: 30px;
     font-weight: bold;
+    color: white;
 }
 
 #update-container {
@@ -36,7 +39,23 @@ body {
     margin-top: 120px;
 }
 
-button {
+/*button {
     padding: 15px 45px;
     font-size: 3rem;
+}*/
+
+button {
+    color: white;
+    background-color: #222;   /* dark button background */
+    border: 1px solid white;
+    padding: 15px 45px;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+input, select {
+    color: black;         /* text inside input */
+    background-color: white;
+    font-size: 2rem;
+    padding: 0.3em 0.5em;
 }
