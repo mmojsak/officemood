@@ -24,7 +24,7 @@ async function drawMeters() {
 
         const svgNS = "http://www.w3.org/2000/svg";
         const svg = document.createElementNS(svgNS, "svg");
-        const radius = 150;
+        const radius = 50;
         const cx = 60, cy = 60;
 
         for (let j = 0; j < happinessLevels.length; j++) {
@@ -43,7 +43,7 @@ async function drawMeters() {
 
         // Arrow
         const arrowAngle = Math.PI * ((happinessData[i]+0.5)/happinessLevels.length);
-        const arrowLength = radius - 30;
+        const arrowLength = radius - 10;
         const arrowX = cx + arrowLength * Math.cos(arrowAngle);
         const arrowY = cy - arrowLength * Math.sin(arrowAngle);
 
