@@ -11,7 +11,8 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 120px;
+    row-gap: 160px;   /* vertical gap */
+    column-gap: 120px; /* horizontal gap */
 }
 
 .meter {
@@ -29,6 +30,12 @@ body {
     margin-top: 30px;
     font-weight: bold;
     color: white;
+}
+
+.meter-comment {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 4px;
 }
 
 #update-container {
@@ -58,4 +65,14 @@ input, select {
     background-color: white;
     font-size: 2rem;
     padding: 0.3em 0.5em;
+}
+
+textarea#comment {
+    color: black;
+    background-color: white;
+    font-size: 2rem;
+    padding: 0.5em;
+    width: 600px;   /* make it wider */
+    height: 40px;  /* make it taller */
+    resize: vertical; /* allow vertical resizing */
 }

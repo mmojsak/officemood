@@ -22,11 +22,17 @@ async function drawMeters() {
         const meterDiv = document.createElement("div");
         meterDiv.className = "meter";
 
+        // Comment
+        const nameDiv = document.createElement("div");
+        nameDiv.className = "meter-name";
+        nameDiv.textContent = person.name;
+        meterDiv.appendChild(nameDiv);
+
         const svgNS = "http://www.w3.org/2000/svg";
         const svg = document.createElementNS(svgNS, "svg");
-        svg.setAttribute("viewBox", "0 0 360 180");  // enough to contain the semicircle
-        svg.setAttribute("width", "360");            // or larger if you want
-        svg.setAttribute("height", "180");           // half-circle height
+        svg.setAttribute("viewBox", "0 0 360 180");
+        svg.setAttribute("width", "360");
+        svg.setAttribute("height", "180");
         const radius = 180;
         const cx = 180, cy = 180;
 
@@ -45,7 +51,8 @@ async function drawMeters() {
         }
 
         // Arrow
-        const arrowAngle = Math.PI * ((happinessData[i]+0.5)/happinessLevels.length);
+        const level = happinessData[i].happiness;
+        const arrowAngle = Math.PI * ((level + 0.5)/happinessLevels.length);
         const arrowLength = radius - 30;
         const arrowX = cx + arrowLength * Math.cos(arrowAngle);
         const arrowY = cy - arrowLength * Math.sin(arrowAngle);
@@ -61,13 +68,22 @@ async function drawMeters() {
 
         meterDiv.appendChild(svg);
 
-        const nameDiv = document.createElement("div");
-        nameDiv.className = "meter-name";
-        nameDiv.textContent = person.name;
-        meterDiv.appendChild(nameDiv);
+        // Comment
+        const commentDiv = document.createElement("div");
+        commentDiv.className = "meter-comment";
+        commentDiv.textContent = happinessData[i].comment || "";
+        commentDiv.style.color = getColorForHappiness(level);
+        commentDiv.style.fontSize = "1.8rem";   // smaller text
+        commentDiv.style.marginTop = "4px";     // small spacing
+        meterDiv.appendChild(commentDiv);
 
         container.appendChild(meterDiv);
     });
+}
+
+function getColorForHappiness(level) {
+    const colors = ["#ff0000ff","#ffff00ff","#04ff00ff","#00ffa2ff","#00bbffff"];
+    return colors[level] || "white";
 }
 
 // ----------------------
@@ -76,18 +92,20 @@ async function drawMeters() {
 async function setupUpdatePage() {
     const passwordInput = document.getElementById("password");
     const select = document.getElementById("happiness");
+    const commentInput = document.getElementById("comment"); // new textarea
     const button = document.getElementById("submit-btn");
 
-    // Load current data
     let happinessData = await fetch("/data").then(r => r.json());
 
     passwordInput.addEventListener("input", () => {
         const idx = people.findIndex(p => p.password === passwordInput.value);
         if (idx >= 0) {
             select.disabled = false;
-            select.value = happinessData[idx];
+            select.value = happinessData[idx].happiness;
+            commentInput.value = happinessData[idx].comment || "";
         } else {
             select.disabled = true;
+            commentInput.value = "";
         }
     });
 
@@ -95,15 +113,16 @@ async function setupUpdatePage() {
         const idx = people.findIndex(p => p.password === passwordInput.value);
         if (idx >= 0) {
             const newValue = parseInt(select.value);
-            // POST update to server
+            const newComment = commentInput.value;
             await fetch("/data", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ index: idx, value: newValue })
+                body: JSON.stringify({ index: idx, value: newValue, comment: newComment })
             });
             alert(`Happiness updated for ${people[idx].name} to ${happinessLevels[newValue]}`);
             passwordInput.value = "";
             select.disabled = true;
+            commentInput.value = "";
         } else {
             alert("Invalid password");
         }
@@ -115,7 +134,6 @@ async function setupUpdatePage() {
 // ----------------------
 if (document.getElementById("meters-container")) {
     drawMeters();
-    // Optional: refresh every 5 seconds
     setInterval(drawMeters, 5000);
 }
 
