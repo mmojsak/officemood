@@ -46,6 +46,23 @@ body {
     margin-top: 120px;
 }
 
+#update-popup-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    font-size: 1rem;
+    padding: 10px 10px;
+
+    background-color: #222;
+    color: white;
+    border: 2px solid white;
+    border-radius: 0px;
+
+    cursor: pointer;
+    z-index: 9999; /* stays above everything */
+}
+
 /*button {
     padding: 15px 45px;
     font-size: 3rem;

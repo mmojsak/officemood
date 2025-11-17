@@ -11,4 +11,15 @@
 
     <script src="script.js"></script>
 </body>
+<button id="update-popup-btn">Update Happiness</button>
 </html>
+
+<script>
+    document.getElementById("update-popup-btn").addEventListener("click", () => {
+    window.open(
+        "update.html",
+        "UpdateWindow",
+        "width=600,height=700,left=100,top=100,resizable=yes"
+    );
+    });
+</script>
