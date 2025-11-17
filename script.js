@@ -1,19 +1,21 @@
-// Define people and their passwords
 const people = [
-    {name: "Alice", password: "a123"},
-    {name: "Bob", password: "b123"},
-    {name: "Charlie", password: "c123"},
-    {name: "Diana", password: "d123"},
-    {name: "Eve", password: "e123"},
-    {name: "Frank", password: "f123"}
+    {name: "E-dawg", password: "euan"},
+    {name: "J-dawg", password: "josh"},
+    {name: "T-dawg", password: "tahlia"},
+    {name: "L-dawg", password: "lucy"},
+    {name: "M-dawg", password: "mateusz"},
+    {name: "A-dawg", password: "adam"}
 ];
 
 const happinessLevels = ["Very Sad", "Sad", "Neutral", "Happy", "Very Happy"];
 
-// Simulate loading/saving from a JSON file
-let happinessData = [2, 2, 2, 2, 2, 2]; // default neutral
+// ----------------------
+// INDEX.HTML LOGIC
+// ----------------------
+async function drawMeters() {
+    const response = await fetch("/data");
+    const happinessData = await response.json();
 
-function drawMeters() {
     const container = document.getElementById("meters-container");
     container.innerHTML = "";
     people.forEach((person, i) => {
@@ -25,7 +27,6 @@ function drawMeters() {
         const radius = 50;
         const cx = 60, cy = 60;
 
-        // Draw semi-circle slices
         for (let j = 0; j < happinessLevels.length; j++) {
             const startAngle = Math.PI * (j / happinessLevels.length);
             const endAngle = Math.PI * ((j+1)/happinessLevels.length);
@@ -40,7 +41,7 @@ function drawMeters() {
             svg.appendChild(path);
         }
 
-        // Draw arrow
+        // Arrow
         const arrowAngle = Math.PI * ((happinessData[i]+0.5)/happinessLevels.length);
         const arrowLength = radius - 10;
         const arrowX = cx + arrowLength * Math.cos(arrowAngle);
@@ -66,11 +67,16 @@ function drawMeters() {
     });
 }
 
-// Update page logic
-function setupUpdatePage() {
+// ----------------------
+// UPDATE.HTML LOGIC
+// ----------------------
+async function setupUpdatePage() {
     const passwordInput = document.getElementById("password");
     const select = document.getElementById("happiness");
     const button = document.getElementById("submit-btn");
+
+    // Load current data
+    let happinessData = await fetch("/data").then(r => r.json());
 
     passwordInput.addEventListener("input", () => {
         const idx = people.findIndex(p => p.password === passwordInput.value);
@@ -82,20 +88,32 @@ function setupUpdatePage() {
         }
     });
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
         const idx = people.findIndex(p => p.password === passwordInput.value);
         if (idx >= 0) {
-            happinessData[idx] = parseInt(select.value);
-            alert(`Happiness updated for ${people[idx].name} to ${happinessLevels[happinessData[idx]]}`);
+            const newValue = parseInt(select.value);
+            // POST update to server
+            await fetch("/data", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ index: idx, value: newValue })
+            });
+            alert(`Happiness updated for ${people[idx].name} to ${happinessLevels[newValue]}`);
+            passwordInput.value = "";
+            select.disabled = true;
         } else {
             alert("Invalid password");
         }
     });
 }
 
-// Detect page type
+// ----------------------
+// DETECT PAGE
+// ----------------------
 if (document.getElementById("meters-container")) {
     drawMeters();
+    // Optional: refresh every 5 seconds
+    setInterval(drawMeters, 5000);
 }
 
 if (document.getElementById("update-container")) {
