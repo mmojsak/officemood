@@ -27,7 +27,7 @@ async function drawMeters() {
         svg.setAttribute("viewBox", "0 0 360 360");  // enough to contain the semicircle
         svg.setAttribute("width", "360");            // or larger if you want
         svg.setAttribute("height", "180");           // half-circle height
-        const radius = 150;
+        const radius = 180;
         const cx = 180, cy = 180;
 
         for (let j = 0; j < happinessLevels.length; j++) {
