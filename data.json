@@ -1,1 +1,26 @@
-[2,2,2,2,0,2]
+[
+  {
+    "happiness": 2,
+    "comment": ""
+  },
+  {
+    "happiness": 0,
+    "comment": ""
+  },
+  {
+    "happiness": 0,
+    "comment": ""
+  },
+  {
+    "happiness": 3,
+    "comment": ""
+  },
+  {
+    "happiness": 0,
+    "comment": ""
+  },
+  {
+    "happiness": 2,
+    "comment": ""
+  }
+]
