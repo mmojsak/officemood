@@ -58,7 +58,7 @@ async function drawMeters() {
             const y2 = cy - radius * Math.sin(endAngle);
 
             const path = document.createElementNS(svgNS, "path");
-            path.setAttribute("d", `M${cx},${cy} L${x1},${y1} A${radius},${radius} 0 0,1 ${x2},${y2} Z`);
+            path.setAttribute("d", `M${cx},${cy} L${x1},${y1} A${radius},${radius} 0 0,0 ${x2},${y2} Z`);
             path.setAttribute("fill", happinessSliceColors[j]);
             svg.appendChild(path);
         }
@@ -66,7 +66,7 @@ async function drawMeters() {
         // Arrow
         const level = happinessData[i].happiness;
         const arrowAngle = Math.PI * ((level + 0.5)/happinessLevels.length);
-        const arrowLength = radius - 30;
+        const arrowLength = radius - 20;
         const arrowX = cx + arrowLength * Math.cos(arrowAngle);
         const arrowY = cy - arrowLength * Math.sin(arrowAngle);
 
