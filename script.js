@@ -95,7 +95,7 @@ async function drawMeters() {
 }
 
 function getColorForHappiness(level) {
-    const colors = ["#ff0000ff","#ffff00ff","#04ff00ff","#00ffa2ff","#00bbffff"];
+    const colors = happinessSliceColors;
     return colors[level] || "white";
 }
 
