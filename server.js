@@ -19,7 +19,8 @@ app.get("/data", (req, res) => {
         // Make sure each item has both happiness and comment
         happinessData = happinessData.map(item => ({
             happiness: item.happiness ?? 0,
-            comment: item.comment ?? ""
+            comment: item.comment ?? "",
+            locked: item.locked ?? false
         }));
         res.json(happinessData);
     });
@@ -29,7 +30,7 @@ app.get("/data", (req, res) => {
 // POST endpoint: update happiness and comment
 // ----------------------
 app.post("/data", (req, res) => {
-    const { index, value, comment } = req.body;
+    const { index, value, comment, locked } = req.body;
 
     fs.readFile(DATA_FILE, "utf8", (err, data) => {
         if (err) return res.status(500).send(err);
@@ -44,6 +45,7 @@ app.post("/data", (req, res) => {
         // Update happiness and comment
         happinessData[index].happiness = value;
         happinessData[index].comment = comment || "";
+        happinessData[index].locked = locked ?? false;
 
         fs.writeFile(DATA_FILE, JSON.stringify(happinessData, null, 2), err => {
             if (err) return res.status(500).send(err);

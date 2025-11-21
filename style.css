@@ -93,3 +93,17 @@ textarea#comment {
     height: 40px;  /* make it taller */
     resize: vertical; /* allow vertical resizing */
 }
+
+.lock-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 4rem;
+}
+
+#locked {
+    width: 40px;    /* default is usually 16px */
+    height: 40px;
+    transform: scale(1.5); /* alternative way to enlarge */
+    margin-right: 10px;    /* spacing from the label text */
+}

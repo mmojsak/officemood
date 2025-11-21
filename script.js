@@ -79,6 +79,18 @@ async function drawMeters() {
         arrow.setAttribute("stroke-width", "9");
         svg.appendChild(arrow);
 
+        // ADD LOCK ICON IF LOCKED
+        if (happinessData[i].locked) {
+            const lock = document.createElementNS(svgNS, "text");
+            lock.setAttribute("x", cx);
+            lock.setAttribute("y", cy - radius + 150);
+            lock.setAttribute("text-anchor", "middle");
+            lock.setAttribute("font-size", "160");
+            lock.setAttribute("fill", "#ffffff");
+            lock.textContent = "🔒";
+            svg.appendChild(lock);
+        }
+
         meterDiv.appendChild(svg);
 
         // Comment
@@ -107,6 +119,7 @@ async function setupUpdatePage() {
     const select = document.getElementById("happiness");
     const commentInput = document.getElementById("comment"); // new textarea
     const button = document.getElementById("submit-btn");
+    const lockedCheckbox = document.getElementById("locked");
 
     let happinessData = await fetch("/data").then(r => r.json());
 
@@ -116,9 +129,11 @@ async function setupUpdatePage() {
             select.disabled = false;
             select.value = happinessData[idx].happiness;
             commentInput.value = happinessData[idx].comment || "";
+            lockedCheckbox.checked = happinessData[idx].locked || false;
         } else {
             select.disabled = true;
             commentInput.value = "";
+            lockedCheckbox.checked = false;
         }
     });
 
@@ -127,15 +142,17 @@ async function setupUpdatePage() {
         if (idx >= 0) {
             const newValue = parseInt(select.value);
             const newComment = commentInput.value;
+            const newLocked = lockedCheckbox.checked;
             await fetch("/data", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ index: idx, value: newValue, comment: newComment })
+                body: JSON.stringify({ index: idx, value: newValue, comment: newComment, locked: newLocked })
             });
             alert(`Happiness updated for ${people[idx].name} to ${happinessLevels[newValue]}`);
             passwordInput.value = "";
             select.disabled = true;
             commentInput.value = "";
+            lockedCheckbox.checked = false;
         } else {
             alert("Invalid password");
         }

@@ -1,26 +1,32 @@
 [
   {
     "happiness": 2,
-    "comment": ""
+    "comment": "",
+    "locked": false
   },
   {
     "happiness": 2,
-    "comment": ""
+    "comment": "",
+    "locked": false
   },
   {
     "happiness": 2,
-    "comment": ""
+    "comment": "",
+    "locked": false
   },
   {
     "happiness": 2,
-    "comment": ""
+    "comment": "",
+    "locked": false
+  },
+  {
+    "happiness": 1,
+    "comment": "hello",
+    "locked": true
   },
   {
     "happiness": 2,
-    "comment": ""
-  },
-  {
-    "happiness": 2,
-    "comment": ""
+    "comment": "",
+    "locked": false
   }
 ]
