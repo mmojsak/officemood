@@ -59,7 +59,7 @@ async function drawMeters() {
 
             const path = document.createElementNS(svgNS, "path");
             path.setAttribute("d", `M${cx},${cy} L${x1},${y1} A${radius},${radius} 0 0,1 ${x2},${y2} Z`);
-            path.setAttribute("fill", `hsl(${j*50},70%,70%)`);
+            path.setAttribute("fill", happinessSliceColors[j]);
             svg.appendChild(path);
         }
 
