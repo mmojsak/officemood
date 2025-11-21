@@ -7,7 +7,20 @@ const people = [
     {name: "Jefe", password: "adam"}
 ];
 
-const happinessLevels = ["Very Sad", "Sad", "Neutral", "Happy", "Very Happy"];
+const happinessLevels = [
+    "Very Happy",
+    "Happy",
+    "Neutral",
+    "Sad",
+    "Angry",
+    ];
+const happinessSliceColors = [
+    "#55ddff",  // Very Happy
+    "#55ff55",  // Happy
+    "#ffee55",  // Neutral
+    "#ffaa00",  // Sad
+    "#ff5555"   // Angry
+];
 
 // ----------------------
 // INDEX.HTML LOGIC
