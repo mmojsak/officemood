@@ -2,31 +2,37 @@
   {
     "happiness": 2,
     "comment": "",
-    "locked": false
+    "locked": false,
+    "markers": []
+  },
+  {
+    "happiness": 3,
+    "comment": "",
+    "locked": false,
+    "markers": []
   },
   {
     "happiness": 2,
     "comment": "",
-    "locked": false
+    "locked": false,
+    "markers": []
   },
   {
     "happiness": 2,
     "comment": "",
-    "locked": false
-  },
-  {
-    "happiness": 2,
-    "comment": "",
-    "locked": false
+    "locked": false,
+    "markers": []
   },
   {
     "happiness": 1,
-    "comment": "hello",
-    "locked": true
+    "comment": "guns!!",
+    "locked": false,
+    "markers": []
   },
   {
     "happiness": 2,
     "comment": "",
-    "locked": false
+    "locked": false,
+    "markers": []
   }
 ]

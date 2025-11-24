@@ -107,3 +107,7 @@ textarea#comment {
     transform: scale(1.5); /* alternative way to enlarge */
     margin-right: 10px;    /* spacing from the label text */
 }
+
+.meter {
+    cursor: url("assets/gun_128.png") 24 38, pointer;
+}

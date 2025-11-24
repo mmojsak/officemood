@@ -79,6 +79,56 @@ async function drawMeters() {
         arrow.setAttribute("stroke-width", "9");
         svg.appendChild(arrow);
 
+
+        // ---------------------------
+        // Step 3: Click to leave PNG marker
+        // ---------------------------
+        svg.addEventListener("click", (e) => {
+            const rect = svg.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const marker = document.createElementNS(svgNS, "image");
+            marker.setAttribute("href", "assets/marker_grey.png");  // your small PNG
+            marker.setAttribute("width", "64");
+            marker.setAttribute("height", "64");
+            marker.setAttribute("x", x - 32);  // center the marker
+            marker.setAttribute("y", y - 32);
+
+            svg.appendChild(marker);
+
+            // Save marker to localStorage so it persists for 24h
+            const key = `meter_marker_${i}`;
+            const existing = JSON.parse(localStorage.getItem(key) || "[]");
+            const expiry = Date.now() + 10*1000; //+ 24*60*60*1000
+            existing.push({ x: x, y: y, expiry });
+            localStorage.setItem(key, JSON.stringify(existing));
+        });
+
+        // ---------------------------
+        // Restore markers from localStorage
+        const key = `meter_marker_${i}`;
+        let storedMarkers = JSON.parse(localStorage.getItem(key) || "[]");
+
+        // Filter out expired markers
+        const now = Date.now();
+        storedMarkers = storedMarkers.filter(m => m.expiry > now);
+
+        // Draw remaining markers
+        storedMarkers.forEach(m => {
+            const marker = document.createElementNS(svgNS, "image");
+            marker.setAttribute("href", "assets/marker_grey.png");
+            marker.setAttribute("width", "64");
+            marker.setAttribute("height", "64");
+            marker.setAttribute("x", m.x - 32);
+            marker.setAttribute("y", m.y - 32);
+            svg.appendChild(marker);
+        });
+
+        // Save the filtered markers back
+        localStorage.setItem(key, JSON.stringify(storedMarkers));
+
+
         // ADD LOCK ICON IF LOCKED
         if (happinessData[i].locked) {
             const lock = document.createElementNS(svgNS, "text");
@@ -110,6 +160,7 @@ function getColorForHappiness(level) {
     const colors = happinessSliceColors;
     return colors[level] || "white";
 }
+
 
 // ----------------------
 // UPDATE.HTML LOGIC

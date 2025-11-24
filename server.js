@@ -54,4 +54,37 @@ app.post("/data", (req, res) => {
     });
 });
 
+app.post("/marker", (req, res) => {
+    const { index, x, y } = req.body;
+    const timestamp = Date.now();
+
+    fs.readFile(DATA_FILE, "utf8", (err, data) => {
+        if (err) return res.status(500).send(err);
+
+        let happinessData = JSON.parse(data);
+        if (!happinessData[index]) {
+            return res.status(400).send("Invalid index");
+        }
+
+        // Make sure markers array exists
+        if (!Array.isArray(happinessData[index].markers)) {
+            happinessData[index].markers = [];
+        }
+
+        // Add new marker
+        happinessData[index].markers.push({ x, y, timestamp });
+
+        // Remove markers older than 24 hours
+        const DAY = 24 * 60 * 60 * 1000;
+        happinessData[index].markers = happinessData[index].markers.filter(
+            m => (timestamp - m.timestamp) < DAY
+        );
+
+        fs.writeFile(DATA_FILE, JSON.stringify(happinessData, null, 2), err => {
+            if (err) return res.status(500).send(err);
+            res.json({ status: "ok" });
+        });
+    });
+});
+
 app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
